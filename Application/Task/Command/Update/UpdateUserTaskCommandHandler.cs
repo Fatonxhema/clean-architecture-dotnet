@@ -28,17 +28,20 @@ namespace Application.Task.Command.Update
         {
             try
             {
-                return await _userRepository.GetByIdAsync(request.UserId)
-                       .EnsureNotNullAsync(Database.InternalServerError)
-                       .EnsureExistsAsync(User.NotFound)
-                       .BindAsync(_ => _taskRepository.GetByIdAsync(request.TaskId))
-                       .EnsureNotNullAsync(Database.InternalServerError)
-                       .EnsureExistsAsync(TaskError.NotFound)
-                       .BindAsync(t => _taskRepository.UpdateAsync(t))
-                       .EnsureNotNullAsync(Database.InternalServerError)
-                       .EnsureExistsAsync(General.UnProcessableRequest)
-                       .UnwrapAsync(General.ServerError)
-                       .MapAsync<Domain.Entities.Task, TaskDto>(_mapper);
+                //return await _userRepository.GetByIdAsync(request.UserId)
+                //       .EnsureNotNullAsync(Database.InternalServerError)
+                //       .EnsureExistsAsync(User.NotFound)
+                //       .BindAsync(_ => _taskRepository.GetByIdAsync(request.TaskId))
+                //       .EnsureNotNullAsync(Database.InternalServerError)
+                //       .EnsureExistsAsync(TaskError.NotFound)
+                //       .BindAsync(t => _taskRepository.UpdateAsync(t))
+                //       .EnsureNotNullAsync(Database.InternalServerError)
+                //       .EnsureExistsAsync(General.UnProcessableRequest)
+                //       .UnwrapAsync(General.ServerError)
+                //       .MapAsync<Domain.Entities.Task, TaskDto>(_mapper);
+                return (Result<TaskDto>)Result<TaskDto>.Failure(
+                    new Domain.Core.Primitives.Error(System.Net.HttpStatusCode.InternalServerError,"" )); 
+
             }
             catch (Exception ex)
             {
